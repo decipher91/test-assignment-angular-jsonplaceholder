@@ -1,0 +1,5 @@
+<div class="container">
+  <ng-container *ngFor="let post of posts$ | async; trackBy: trackByFn">
+    <app-post [post]="post"></app-post>
+  </ng-container>
+</div>

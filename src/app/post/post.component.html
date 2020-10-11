@@ -1,0 +1,10 @@
+<mat-card class="card">
+  <ng-template [ngIf]="faceUp" [ngIfElse]="faceDown">
+    <mat-card-title>{{post.id}}</mat-card-title>
+    <mat-card-subtitle>ID</mat-card-subtitle>
+  </ng-template>
+  <ng-template #faceDown>
+    <mat-card-title>{{post.userId}}</mat-card-title>
+    <mat-card-subtitle>User</mat-card-subtitle>
+  </ng-template>
+</mat-card>
