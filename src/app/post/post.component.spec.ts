@@ -11,9 +11,7 @@ describe('PostComponent', () => {
       declarations: [ PostComponent ]
     })
     .compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(PostComponent);
     component = fixture.componentInstance;
     component.post = { id: 1, userId: 1, body: 'lorem', title: 'ipsum' };

@@ -3,7 +3,7 @@ import {IPost} from './posts.domain';
 import { TestBed } from '@angular/core/testing';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 
-describe('DogService', () => {
+describe('PostsService', () => {
   let httpTestingController: HttpTestingController;
   let postsService: IPostsService;
 

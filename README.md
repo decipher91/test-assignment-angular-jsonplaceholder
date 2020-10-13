@@ -17,5 +17,5 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 ## Notes from Vitaliy
 
 - I didn't add routing (with it's advantages as lazy loading), since there is no need for it in such small app
-- I added some tests, but nothing special, since there is not much complex logic
+- I added some tests, but nothing special, since there is not much complex logic. I also was not intending to get 100% coverage (got 82% though), but I generally don't believe it should be an ultimate goal of every project
 - I prefer to use change detection strategy ONPUSH in real life applications due to it's many benefits, but it does not make much sense here, so I left a default one.  
