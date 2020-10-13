@@ -1,22 +1,15 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {IPostsService, postServiceToken} from '../providers/posts.service';
 import {IPost} from '../providers/posts.domain';
-import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-posts-list',
   templateUrl: './posts-list.component.html',
   styleUrls: ['./posts-list.component.scss'],
 })
-export class PostsListComponent implements OnInit {
+export class PostsListComponent {
 
-  public posts$: Observable<IPost[]>;
-
-  constructor(@Inject(postServiceToken) private postsService: IPostsService) { }
-
-  public ngOnInit(): void {
-    this.posts$ = this.postsService.getPosts();
-  }
+  constructor(@Inject(postServiceToken) public postsService: IPostsService) { }
 
   public trackByFn(index: number, item: IPost): number {
     return item.id;

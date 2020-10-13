@@ -1,6 +1,8 @@
 import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 
 import { PostComponent } from './post.component';
+import {POSTS_SERVICE, postServiceToken} from '../providers/posts.service';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('PostComponent', () => {
   let component: PostComponent;
@@ -8,15 +10,16 @@ describe('PostComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PostComponent ]
+      declarations: [ PostComponent ],
+      providers: [POSTS_SERVICE],
+      imports: [HttpClientTestingModule],
     })
     .compileComponents();
-  });
 
-  beforeEach(() => {
+    TestBed.inject(postServiceToken);
     fixture = TestBed.createComponent(PostComponent);
     component = fixture.componentInstance;
-    component.post = { id: 1, userId: 1, body: 'lorem', title: 'ipsum' };
+    component.post = { id: 1, userId: 1, body: 'lorem', title: 'ipsum', faceUp: true };
     fixture.detectChanges();
   });
 

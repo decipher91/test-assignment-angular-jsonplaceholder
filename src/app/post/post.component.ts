@@ -1,5 +1,6 @@
-import {Component, HostListener, Input} from '@angular/core';
+import {Component, HostListener, Inject, Input} from '@angular/core';
 import {IPost} from '../providers/posts.domain';
+import {IPostsService, postServiceToken} from '../providers/posts.service';
 
 @Component({
   selector: 'app-post',
@@ -11,12 +12,10 @@ export class PostComponent {
   @Input()
   public post: IPost;
 
-  public faceUp: boolean = true;
-
   @HostListener('click', ['$event'])
   public onCardClicked(event: Event): void {
-    this.faceUp = !this.faceUp;
+    this.postsService.flip(this.post.id);
   }
 
-  constructor() { }
+  constructor(@Inject(postServiceToken) public postsService: IPostsService) { }
 }

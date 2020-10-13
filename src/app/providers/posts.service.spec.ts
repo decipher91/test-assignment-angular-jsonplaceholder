@@ -1,9 +1,10 @@
 import {API_URL, IPostsService, POSTS_SERVICE, postServiceToken} from './posts.service';
-import {IPost} from './posts.domain';
 import { TestBed } from '@angular/core/testing';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import {IPost} from './posts.domain';
+import {skip} from 'rxjs/operators';
 
-describe('DogService', () => {
+describe('PostsService', () => {
   let httpTestingController: HttpTestingController;
   let postsService: IPostsService;
 
@@ -15,25 +16,33 @@ describe('DogService', () => {
 
     httpTestingController = TestBed.inject(HttpTestingController);
     postsService = TestBed.inject(postServiceToken);
+    httpTestingController.expectOne({
+      url: API_URL,
+      method: 'get'
+    }).flush([{ id: 17, userId: 1, body: 'lorem', title: 'ipsum', faceUp: true }]);
+
+    httpTestingController.verify();
   });
 
   afterEach(() => {
     httpTestingController.verify();
   });
 
-  it('should return expected posts observable', () => {
-    const expectedData: IPost[] =
-      [{ id: 1, userId: 1, body: 'lorem', title: 'ipsum' }, { id: 2, userId: 1, body: 'lorem', title: 'ipsum' }];
+  it('data should be requested when service is used', () => {
 
-    postsService.getPosts().subscribe(
-      (posts) => {
-        expect(posts).not.toBe(null);
-        expect(posts.length).toEqual(2);
+      postsService.posts$.subscribe((posts: IPost[]) => {
+        const postToAssert = posts.find((post: IPost) => post.id === 17);
+        expect(postToAssert.faceUp).toEqual(true);
       });
+    });
 
-    const req = httpTestingController
-      .expectOne(API_URL);
+  it('data should be requested when service is used', () => {
 
-    req.flush(expectedData);
+    postsService.posts$.pipe(skip(1)).subscribe((posts: IPost[]) => {
+      const postToAssert = posts.find((post: IPost) => post.id === 17);
+      expect(postToAssert.faceUp).toEqual(false);
+    });
+
+    postsService.flip(17);
   });
 });

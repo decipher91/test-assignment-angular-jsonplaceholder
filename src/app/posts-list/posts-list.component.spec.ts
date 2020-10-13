@@ -15,9 +15,6 @@ describe('PostsListComponent', () => {
       imports: [HttpClientTestingModule],
     })
     .compileComponents();
-  });
-
-  beforeEach(() => {
     fixture = TestBed.createComponent(PostsListComponent);
     component = fixture.componentInstance;
     TestBed.inject(postServiceToken);
